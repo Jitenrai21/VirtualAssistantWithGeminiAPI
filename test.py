@@ -1,12 +1,10 @@
-import speech_recognition as sr
+import google.generativeai as genai
+import os
+from dotenv import load_dotenv
 
-recognizer = sr.Recognizer()
-with sr.Microphone() as source:
-    print("Say something!")
-    audio = recognizer.listen(source)
-try:
-    print("You said: " + recognizer.recognize_google(audio))
-except sr.UnknownValueError:
-    print("Google Speech Recognition could not understand audio")
-except sr.RequestError as e:
-    print(f"Could not request results; {e}")
+load_dotenv()
+genai.configure(api_key=os.getenv('GOOGLE_API_KEY'))
+
+# List available models
+# for model in genai.list_models():
+#     print(model.name)
